@@ -1,0 +1,66 @@
+//ch2-3.c 约瑟夫环问题
+# include <stdio.h>
+# include <malloc.h>
+
+//定义链表结点类型
+typedef struct Node							
+{
+	int data;									//数据域
+	struct Node *next;							//指针域
+}Node;
+
+ //约瑟夫环问题
+void Josephu (int n, int k, int m)
+{	
+	Node *head, *p, *q;
+	int i;
+	head = NULL;								//头指针为空
+	for (i = 1; i <= n; i ++)						//建立一个循环链表
+	{ 	
+		p = (Node *) malloc (sizeof (Node));		//生成新结点
+		p -> data = i;							//新结点的数据域为编号
+		if (head == NULL)
+			head = p;
+		else
+			q -> next = p;
+		q = p;
+	}
+	p -> next = head;
+	p = head;
+	for (i = 1; i < k; i ++)						//指针p指向编号为k的结点
+	{
+		q = p;
+		p = p -> next;
+}
+printf ("出列的顺序依次为：");
+while (p != q)								//循环数数，将第m个结点删除
+{
+		for ( i = 1; i < m; i ++)					//指针p指向第m个结点
+		{
+			q = p;
+			p = p -> next;
+}
+q -> next = p -> next;					//将结点p删除
+printf ("%4d", p -> data);
+free (p);								//释放结点p的空间
+p = q -> next;							//指针p指向新的出发结点
+	}
+	printf ("%4d\n", p -> data);
+}
+
+void main ()
+{
+	int n, k, m;
+	printf ("输入n的值：");
+	scanf ("%d", &n);
+	printf ("输入k的值：");
+	scanf ("%d", &k);
+	printf ("输入m的值：");
+	scanf ("%d", &m);
+	Josephu (n, k, m);
+}
+/*【程序测试】
+输入n的值：10↙
+输入k的值：3↙
+输入m的值：6↙
+出列的顺序依次为：   8   4   1   9   7   10   3   2   6   5*/
